@@ -10,9 +10,20 @@
     <h1 class="bg-blank p-2 text-white text-center">Agregar producto</h1>
     <div class="container">
     <form action="insertarDatos.php" method="POST">
+        
+    <label  class="form-label">Modelo</label>
+        <select class="form-select mb-3" name="marca">
+        <option selected dissabled>Seleccionar modelo</option>
+        <?php
+            include("../Config/Conexion.php");
+
+            $sql = $conexion->query("SELECT * FROM marca");
+            while ($resultado = $sql->fetch_assoc()){
+                echo "<option value='".$resultado['id_marca']."'>".$resultado['nombre_marca']."</option>";
+            }
+        ?>
+        </select>
         <label>Marcas</label>
-    
-    
         <label  class="form-label">Modelo</label>
         <select class="form-select mb-3" name="modelos">
         <option selected dissabled>Seleccionar modelo</option>
@@ -21,13 +32,21 @@
 
             $sql = $conexion->query("SELECT * FROM modelo");
             while ($resultado = $sql->fetch_assoc()){
-                echo "<option value='".$resultado['id_marca']."'>".$resultado['nombre_modelo']."</option>";
+                echo "<option value='".$resultado['nombre_modelo']."'>".$resultado['nombre_modelo']."</option>";
             }
         ?>
         </select>
     <div class="mb-3">
-        <label  class="form-label">Cantidad venta</label>
+        <label  class="form-label">Stock modelo</label>
+        <input type="text" class="form-control" name="stock">
+    </div>    
+    <div class="mb-3">
+        <label  class="form-label">Precio</label>
         <input type="text" class="form-control" name="precio">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">Cantidad</label>
+        <input type="text" class="form-control" name="cantidad">
     </div>
     <div class="text-center">
         <button type="submit" class="btn btn-danger">Enviar</button>
